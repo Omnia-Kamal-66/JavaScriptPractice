@@ -3,6 +3,9 @@ const MONSTER_ATTACK_VALUE = 14;
 const STRONG_ATTACK_VALUE = 17;
 const HEAL_VALUE = 20;
 
+const MODE_ATTACK = "ATTACK";
+const MODE_STRONG_ATTACK = "STRONG_ATTACK"; //the ideas is to write the string once and ude it without typos
+
 const enteredValue = prompt("Maximum life for you and the monster.", "100");
 
 let chosenMaxLife = parseInt(enteredValue);
@@ -60,9 +63,9 @@ function endRound() {
 function attackMonster(mode) {
   /*  this function is for the player attack and at the end we call the function of the monster attack and to check win conditions*/
   let maxDamage;
-  if (mode === "ATTACK") {
+  if (mode === MODE_ATTACK) {
     maxDamage = ATTACK_VALUE;
-  } else if (mode === "STRONG_ATTACK") {
+  } else if (mode === MODE_STRONG_ATTACK) {
     maxDamage = STRONG_ATTACK_VALUE;
   }
   //action
@@ -73,11 +76,11 @@ function attackMonster(mode) {
 }
 
 function attackHandler() {
-  attackMonster("ATTACK");
+  attackMonster(MODE_ATTACK);
 }
 
 function strongAttackHandler() {
-  attackMonster("STRONG_ATTACK");
+  attackMonster(MODE_STRONG_ATTACK);
 }
 
 function healPlayerHandler() {
