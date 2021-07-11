@@ -6,10 +6,13 @@ const HEAL_VALUE = 20;
 let chosenMaxLife = 100;
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
+let hasBonusLife = true;
 
 adjustHealthBars(chosenMaxLife);
 
 function endRound() {
+  const initialPlayerHealth = currentPlayerHealth; //player health before the monster attacks him
+
   /* this function is for monster attack only */
   /*- the monster will hit us with ever button click ,
      either we clicked on attack ,strong attack or heal button
@@ -20,6 +23,14 @@ function endRound() {
      */
   const playerDamage = dealPlayerDamage(MONSTER_ATTACK_VALUE);
   currentPlayerHealth -= playerDamage;
+
+  if (currentPlayerHealth <= 0 && hasBonusLife) {
+    hasBonusLife = false;
+    removeBonusLife();
+    currentPlayerHealth = initialPlayerHealth; // we reset player health to value before monster hits him
+    setPlayerHealth(initialPlayerHealth); //updates the ui health bar
+    alert("you would be dead but the bonus life saved you");
+  }
 
   if (currentMonsterHealth <= 0 && currentPlayerHealth > 0) {
     alert("You won!!");
