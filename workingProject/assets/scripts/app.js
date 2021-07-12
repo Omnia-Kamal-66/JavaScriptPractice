@@ -184,9 +184,16 @@ function healPlayerHandler() {
 }
 
 function printLogHandler() {
-  for (let i = 0; i < battleLog.length; i++) {
-    console.log("-------------");
+  // for (let i = 0; i < battleLog.length; i++) {
+  //   console.log(battleLog[i]);
+  // }
+
+  //you got a new const for every loop iteration in the for-of loop
+  //you have access to the element but not to the index
+  for (const logEntry of battleLog) {
+    console.log(logEntry);
   }
+
   // for (let i = 10; i > 0; i--) {
   //   console.log(i);
   // }
