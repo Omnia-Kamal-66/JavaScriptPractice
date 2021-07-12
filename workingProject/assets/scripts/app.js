@@ -190,8 +190,15 @@ function printLogHandler() {
 
   //you got a new const for every loop iteration in the for-of loop
   //you have access to the element but not to the index
+  let i = 0;
   for (const logEntry of battleLog) {
-    console.log(logEntry);
+    console.log(`#${i}`);
+    for (const key in logEntry) {
+      console.log(`${key} => ${logEntry[key]}`);
+      // console.log(key);
+      // console.log(logEntry[key]); //the name inside [] has to be string or a variable that holds the property name
+    }
+    i++;
   }
 
   // for (let i = 10; i > 0; i--) {
