@@ -188,6 +188,12 @@ function printLogHandler() {
   //   console.log(battleLog[i]);
   // }
 
+  let j = 0;
+  do {
+    console.log("------");
+    j++;
+  } while (j < 3);
+
   //you got a new const for every loop iteration in the for-of loop
   //you have access to the element but not to the index
   let i = 0;
