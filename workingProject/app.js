@@ -1,26 +1,29 @@
 const startGameBtn = document.getElementById("start-game-btn");
 
-//function expression
+const ROCK = "ROCK";
+const PAPER = "PAPER";
+const SCISSORS = "SCISSORS";
+const DEFAULT_USER_CHOICE = ROCK;
 
-//you have to define your functions before you start using them in the case of function expression
+let gameIsRunning = false;
 
-start(); //it will give an error
-const start = function () {
-  console.log("Game is starting....");
+const getPlayerChoice = function () {
+  const selection = prompt(
+    `${ROCK} , ${PAPER} , ${SCISSORS}`,
+    ""
+  ).toUpperCase();
+  if (selection !== ROCK && selection !== PAPER && selection !== SCISSORS) {
+    alert(`invalid choice! we chose ${DEFAULT_USER_CHOICE} for you!`);
+    return DEFAULT_USER_CHOICE;
+  }
+  return selection;
 };
-
-//a function that is stored inside of an object is called a method
-// const person = {
-//   greet: function greet() {
-//     console.log("Hello There!");
-//   },
-// };
-// person.greet();
-
 startGameBtn.addEventListener("click", function () {
+  if (gameIsRunning) {
+    return;
+  }
+  gameIsRunning = true;
   console.log("Game is starting....");
+  const playerSelection = getPlayerChoice();
+  console.log(playerSelection);
 });
-//you can add your function implemntation directly her
-/* this is called anonymous function , you can omit the name of
-  the function but using it will make it easier to debug if an
-  error occured */
