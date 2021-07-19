@@ -1,6 +1,10 @@
 const startGameBtn = document.getElementById("start-game-btn");
 
 //function expression
+
+//you have to define your functions before you start using them in the case of function expression
+
+start(); //it will give an error
 const start = function () {
   console.log("Game is starting....");
 };
