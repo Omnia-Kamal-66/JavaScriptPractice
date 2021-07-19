@@ -17,4 +17,10 @@ const start = function () {
 // };
 // person.greet();
 
-startGameBtn.addEventListener("click", start);
+startGameBtn.addEventListener("click", function () {
+  console.log("Game is starting....");
+});
+//you can add your function implemntation directly her
+/* this is called anonymous function , you can omit the name of
+  the function but using it will make it easier to debug if an
+  error occured */
