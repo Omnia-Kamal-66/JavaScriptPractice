@@ -18,6 +18,7 @@ if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
   chosenMaxLife = 100;
 }
 let battleLog = [];
+let lastLoggedEntry;
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
 let hasBonusLife = true;
@@ -196,21 +197,28 @@ function printLogHandler() {
 
   //you got a new const for every loop iteration in the for-of loop
   //you have access to the element but not to the index
+  /* we want to make sure whenerver we pressed the show log button
+  we only output one event at a time but of course not always the same one
+
+  and for that we will add a global variable that keeps track of 
+  the last event we logged
+*/
+  /* in the next for loop , we will check the if condition and if it is not true ,we won't print our log and we contiue and increment i and then continue our loop and do the if check and it yeilds true so we print our log*/
   let i = 0;
   for (const logEntry of battleLog) {
-    console.log(`#${i}`);
-    for (const key in logEntry) {
-      console.log(`${key} => ${logEntry[key]}`);
-      // console.log(key);
-      // console.log(logEntry[key]); //the name inside [] has to be string or a variable that holds the property name
+    if ((!lastLoggedEntry && lastLoggedEntry !== 0) || lastLoggedEntry < i) {
+      console.log(`#${i}`);
+      for (const key in logEntry) {
+        console.log(`${key} => ${logEntry[key]}`);
+        // console.log(key);
+        // console.log(logEntry[key]); //the name inside [] has to be string or a variable that holds the property name
+      }
+      lastLoggedEntry = i;
+      break; //we moved th break statement here inside the if statement to make the for of loop to contiue and have a chance to increment i
     }
+
     i++;
   }
-
-  // for (let i = 10; i > 0; i--) {
-  //   console.log(i);
-  // }
-  console.log(battleLog);
 }
 
 attackBtn.addEventListener("click", attackHandler);
