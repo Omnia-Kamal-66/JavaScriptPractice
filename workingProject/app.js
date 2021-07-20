@@ -76,31 +76,57 @@ startGameBtn.addEventListener("click", () => {
 which then gets the sum as an argument
 it's now our job to make sure that when we call sumup , we provide this function
 */
-const sumUp = (resultHandler, ...numbers) => {
+const combine = (resultHandler, operation, ...numbers) => {
   const validateNumber = (number) => {
     return isNaN(number) ? 0 : number;
   };
 
   let sum = 0;
   for (const num of numbers) {
-    sum += validateNumber(num);
+    if (operation === "ADD") {
+      sum += validateNumber(num);
+    } else {
+      sum -= validateNumber(num);
+    }
   }
-  resultHandler(sum);
+  resultHandler(sum); //this argument will be appended as the last argument in your function
 };
 //the arguments keyword can only be used with functions that have names , it can't be used with arrow function
 
-const subtractUp = function () {
-  let sum = 0;
-  for (const num of arguments) {
-    //don't use that , use rest operator
-    sum -= num;
-  }
-  return sum;
-};
+// const subtractUp = function (resultHandler, ...numbers) {
+//   let sum = 0;
+//   for (const num of numbers) {
+//     //don't use that , use rest operator
+//     sum -= num;
+//   }
+//   resultHandler(sum);
+// };
 /* i can expect to get the result as an argument to this function , because this will 
 be the function i pass to sumUp in the end as a first argument */
 
-const showResult = (result) => {
-  alert("The result after adding all numbers is " + result);
+/* bind method , create a new refrence at a function which
+it returns to you , which will be preconfigured regarding the arguments 
+it recieves
+with bind you can create a function which is not immediately excuted
+which is prepared for a fuuture excution where certain values for certain parameters 
+which already known at this point of time are already set
+
+bint takes atleat two arguments
+if you bind or set your own arguments , these will always come first and then other arguments
+*/
+const showResult = (messageText, result) => {
+  alert(messageText + "  " + result);
 };
-sumUp(showResult, 1, 2);
+combine(
+  showResult.bind(this, "the result after adding all numbers is "),
+  "ADD",
+  1,
+  3,
+  4
+);
+combine(
+  showResult.bind(this, "the result after subtracting all numbers is "),
+  "SUBTRACT",
+  8,
+  4
+);
