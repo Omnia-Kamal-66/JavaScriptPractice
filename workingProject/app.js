@@ -130,3 +130,5 @@ combine(
   8,
   4
 );
+
+//module 6 is done
