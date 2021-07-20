@@ -72,8 +72,11 @@ startGameBtn.addEventListener("click", () => {
 });
 
 //not related to game
-
-const sumUp = (...numbers) => {
+/*the sum function shouldn't return the sum , but instead it should excute a function which we pass to it
+which then gets the sum as an argument
+it's now our job to make sure that when we call sumup , we provide this function
+*/
+const sumUp = (resultHandler, ...numbers) => {
   const validateNumber = (number) => {
     return isNaN(number) ? 0 : number;
   };
@@ -82,7 +85,7 @@ const sumUp = (...numbers) => {
   for (const num of numbers) {
     sum += validateNumber(num);
   }
-  return sum;
+  resultHandler(sum);
 };
 //the arguments keyword can only be used with functions that have names , it can't be used with arrow function
 
@@ -94,5 +97,10 @@ const subtractUp = function () {
   }
   return sum;
 };
-console.log(sumUp(1, 2));
-console.log(subtractUp(5, 6));
+/* i can expect to get the result as an argument to this function , because this will 
+be the function i pass to sumUp in the end as a first argument */
+
+const showResult = (result) => {
+  alert("The result after adding all numbers is " + result);
+};
+sumUp(showResult, 1, 2);
