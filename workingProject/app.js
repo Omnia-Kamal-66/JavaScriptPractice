@@ -33,7 +33,10 @@ const getComputerChoice = function () {
   }
 };
 
-const getWinner = function (cChoice, pChoice) {
+//arrow function is an anonymous function that can't have any name
+//if you omit the curly braces of the arrow function you should omi the return keyword
+
+const getWinner = (cChoice, pChoice) => {
   if (cChoice === pChoice) {
     return RESULT_DRAW;
   } else if (
@@ -47,7 +50,7 @@ const getWinner = function (cChoice, pChoice) {
   }
 };
 
-startGameBtn.addEventListener("click", function () {
+startGameBtn.addEventListener("click", () => {
   if (gameIsRunning) {
     return;
   }
