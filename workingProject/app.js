@@ -70,3 +70,25 @@ startGameBtn.addEventListener("click", () => {
   alert(message);
   gameIsRunning = false;
 });
+
+//not related to game
+
+const sumUp = (...numbers) => {
+  let sum = 0;
+  for (const num of numbers) {
+    sum += num;
+  }
+  return sum;
+};
+//the arguments keyword can only be used with functions that have names , it can't be used with arrow function
+
+const subtractUp = function () {
+  let sum = 0;
+  for (const num of arguments) {
+    //don't use that , use rest operator
+    sum -= num;
+  }
+  return sum;
+};
+console.log(sumUp(1, 2));
+console.log(subtractUp(5, 6));
