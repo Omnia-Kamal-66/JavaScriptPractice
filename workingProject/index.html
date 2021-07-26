@@ -4,10 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Rock, Paper, Scissors</title>
+  <title>DOM Interaction</title>
   <script src="app.js" defer></script>
 </head>
 <body>
-  <button id="start-game-btn">Start Game!</button>
+  <header> <h1 id="main-title"> Dive into DOM! </h1></header>
+  <ul>
+    <li>item 1</li>
+    <li class="list-item" > item 2</li>
+    <li class="list-item" > item 3 </li>
+  </ul>
+
+  <input  value="Default text">
+  <!--  
+    Attributes vs properties
+
+    if the user entered some text in the above input box ,
+    this text will be stored in the value property but not reflected 
+    back to the html code , to keep the original value 
+    only if you changed the value attribute , the value property will be changed
+    it's a one way sync
+  -->
 </body>
-</html>
+</html> 
