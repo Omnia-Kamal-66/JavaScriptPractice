@@ -5,15 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>DOM Interaction</title>
+  <style>
+    .red-bg {
+      background-color: red;
+      color: white;
+    }
+    .visible{
+      display: block;
+    }
+
+    .invisible{
+      display: none;
+    }
+
+  </style>
   <script src="app.js" defer></script>
 </head>
 <body>
   <header> <h1 id="main-title"> Dive into DOM! </h1></header>
-  <ul>
-    <li>item 1</li>
-    <li class="list-item" > item 2</li>
-    <li class="list-item" > item 3 </li>
-  </ul>
+  <section class="red-bg visible">
+    <ul>
+      <li class="list-item" >item 1</li>
+      <li class="list-item" > item 2</li>
+      <li class="list-item" > item 3 </li>
+    </ul>
+
+
+  </section>
+
+  <button>Toggle Visibility</button>
 
   <input  value="Default text">
   <!--  
@@ -24,6 +44,8 @@
     back to the html code , to keep the original value 
     only if you changed the value attribute , the value property will be changed
     it's a one way sync
+    -----
+    only element nodes can have child node
   -->
 </body>
 </html> 

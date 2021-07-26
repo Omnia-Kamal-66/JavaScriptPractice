@@ -1,17 +1,23 @@
-const h1 = document.getElementById("main-title");
+const section = document.querySelector("section");
 
-h1.textContent = "some new title";
-h1.style.color = "white";
-h1.style.backgroundColor = "black";
+// section.style.backgroundColor = "blue";
 
-const li = document.querySelector("li:last-of-type");
-li.textContent = li.textContent + "(Changed)";
+section.className = "red-bg";
 
-// const listItemElements = document.querySelectorAll("li"); //this doesn't give a live list , this just takes a snapshot
+//this is how we manually manage the classes
+const button = document.querySelector("button");
+button.addEventListener("click", () => {
+  //   if (section.className === "red-bg visible") {
+  //     section.className = "red-bg invisible";
+  //   } else {
+  //     section.className = "red-bg visible";
+  //   }
 
-//this gives you a live list which reflects changes to the selected elements(if the number of elements changed)
-const listItemElements = document.getElementsByTagName("li");
+  //instead : use the classlist to check if a certain class is set , and don't worry about other classes
 
-for (const listItemEl of listItemElements) {
-  console.dir(listItemEl);
-}
+  /* now classlist will automatically check whether visible is set when we call toggle visible and 
+we'll remove it if it is and add it otherwise  */
+  //   section.classList.toggle("visible");
+
+  section.classList.toggle("invisible");
+});
