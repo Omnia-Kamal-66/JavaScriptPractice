@@ -60,6 +60,7 @@ const AddingToMovieList = () => {
 const cancelAddMovie = () => {
   closeMovieModal();
   clearMovieInput();
+  toggleBackdrop();
 };
 
 const renderNewMovieElement = (id, title, image, rating) => {
@@ -90,8 +91,11 @@ const closeMovieModal = () => {
 const deleteMovieHandler = (movieId) => {
   console.log(deleteMovieModal);
   deleteMovieModal.classList.add("visible");
+  const cancelDeletionBtn = deleteMovieModal.querySelector(".btn--passive");
+  const confirmDeletionBtn = deleteMovieModal.querySelector(".btn--danger");
+  cancelDeletionBtn.addEventListener("click", cancelMovieDeletion);
+  confirmDeletionBtn.addEventListener("click", deleteMovie.bind(null, movieId));
   toggleBackdrop();
-  //   deleteMovie(movieId);
 };
 const deleteMovie = (movieId) => {
   let movieIndex = 0;
@@ -104,6 +108,8 @@ const deleteMovie = (movieId) => {
   movies.splice(movieIndex, 1);
   const movieList = document.getElementById("movie-list");
   movieList.children[movieIndex].remove();
+  deleteMovieModal.classList.remove("visible");
+  toggleBackdrop();
 };
 const cancelMovieDeletion = () => {
   toggleBackdrop();
