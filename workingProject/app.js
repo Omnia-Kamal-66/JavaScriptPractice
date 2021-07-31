@@ -1,36 +1,17 @@
-const numbers = [1, 2, 3];
-console.log(numbers);
+const hobbies = ["sports", "cooking"];
+hobbies.push("reading"); //add a new element to the end of the array
+hobbies.unshift("coding"); //add a new element in the first place of the array
+const deletedElement = hobbies.pop(); //remove the item in the end
+hobbies.shift(); //remove the item at the beginnig of the array
+console.log(deletedElement);
+console.log(hobbies);
 
-//niche , you won't need to use them
+//push and return also return something , a number which is the new length of the array
+//pop returns the element it removed
+//shift function , shifts all elements in the array one place to the left , which mean drops the first element
+//unshift , shifts all elements one place to the right
+//shift and unshift are slower than push and pop because they affect all elements
 
-// //constructor function
-// //caling array as a function
-// //if we pass one number in parameters , it will create an array of length 5 (empty array with fixed size)
-// const moreNumbers = new Array("hi", "welcome"); //you can pass as many parameters as you want , you can omit the new keyword
-// console.log(moreNumbers);
-
-// const yetMoreNumbers = Array.of(1, 2);
-// console.log(yetMoreNumbers);
-
-//it doesn't take multiple numbers , instead this takes an iterable or an array like object
-//it allows you to convert an iterable or an array like object which is not array yet to an array
-
-const listItems = document.querySelectorAll("li");
-console.log(listItems); //this gives you a node list (an array like)
-
-const moreNumbers = Array.from(listItems);
-console.log(moreNumbers);
-
-const hobbies = ["cooking", "sports"];
-const personalData = [30, "max", { moreDetail: [] }];
-
-const analyticsData = [
-  [1, 1.6],
-  [3, 4.3],
-];
-for (const data of analyticsData) {
-  for (const dataPoint of data) {
-    console.log(dataPoint);
-  }
-}
-console.log(personalData[1]);
+hobbies[1] = "Coding";
+// hobbies[5] = "Reading"; //rarely used
+console.log(hobbies);
