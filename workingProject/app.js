@@ -15,3 +15,11 @@ console.log(hobbies);
 hobbies[1] = "Coding";
 // hobbies[5] = "Reading"; //rarely used
 console.log(hobbies);
+
+//splice method , help us insert elements between two elements , used only on real arrays
+//splice returns the removed elements
+//we can use negative index , splice(-1 , 1) this will go to the end of the array
+hobbies.splice(1, 0, "Good Food"); //insert this elements in the first place you start looking
+console.log(hobbies);
+hobbies.splice(0, 1); //splice(0) deletes all array items , splice(1) skipps first element and delete the rest of the array and so on
+console.log(hobbies);
