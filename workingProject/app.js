@@ -20,3 +20,17 @@ console.log(listItems); //this gives you a node list (an array like)
 
 const moreNumbers = Array.from(listItems);
 console.log(moreNumbers);
+
+const hobbies = ["cooking", "sports"];
+const personalData = [30, "max", { moreDetail: [] }];
+
+const analyticsData = [
+  [1, 1.6],
+  [3, 4.3],
+];
+for (const data of analyticsData) {
+  for (const dataPoint of data) {
+    console.log(dataPoint);
+  }
+}
+console.log(personalData[1]);
