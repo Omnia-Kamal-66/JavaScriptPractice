@@ -18,22 +18,29 @@ has a job of taking an array , running a function , which has this form on every
 and that function should return a new element for every element in that array
 
 */
-const taxAdjustedPrices = prices.map((price, idx, prices) => {
-  const priceObj = { index: idx, taxAdjustedPrice: price * (1 + tax) };
-  return priceObj;
+// const taxAdjustedPrices = prices.map((price, idx, prices) => {
+//   const priceObj = { index: idx, taxAdjustedPrice: price * (1 + tax) };
+//   return priceObj;
+// });
+
+// //sort compares strings
+
+// const sortedPrices = prices.sort((a, b) => {
+//   if (a > b) {
+//     return 1;
+//   } else if (a === b) {
+//     return 0;
+//   } else if (b > a) {
+//     return -1;
+//   }
+// });
+// console.log(sortedPrices.reverse());
+
+// // console.log(prices, taxAdjustedPrices);
+
+/* filter will return a brand new array
+ */
+const filteredArray = prices.filter((price, idx, prices) => {
+  return price > 6;
 });
-
-//sort compares strings
-
-const sortedPrices = prices.sort((a, b) => {
-  if (a > b) {
-    return 1;
-  } else if (a === b) {
-    return 0;
-  } else if (b > a) {
-    return -1;
-  }
-});
-console.log(sortedPrices.reverse());
-
-// console.log(prices, taxAdjustedPrices);
+console.log(filteredArray);
