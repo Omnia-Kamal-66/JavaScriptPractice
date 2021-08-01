@@ -23,4 +23,17 @@ const taxAdjustedPrices = prices.map((price, idx, prices) => {
   return priceObj;
 });
 
-console.log(prices, taxAdjustedPrices);
+//sort compares strings
+
+const sortedPrices = prices.sort((a, b) => {
+  if (a > b) {
+    return 1;
+  } else if (a === b) {
+    return 0;
+  } else if (b > a) {
+    return -1;
+  }
+});
+console.log(sortedPrices.reverse());
+
+// console.log(prices, taxAdjustedPrices);
