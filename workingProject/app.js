@@ -1,14 +1,7 @@
-const prices = [10.99, 5.99, 3.99, 6.59];
+const data = "new york;10.99;2000";
+const transformedData = data.split(";");
+console.log(transformedData);
 
-let sum = 0;
-prices.forEach((price) => {
-  sum += price;
-});
-console.log(sum);
-
-//or
-
-const sum1 = prices.reduce((prevValue, curValue) => {
-  return prevValue + curValue;
-}, 0);
-console.log(sum1);
+const nameFragmants = ["Omnia", "Kamal"];
+const name = nameFragmants.join(" ");
+console.log(name);
