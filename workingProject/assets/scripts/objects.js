@@ -30,8 +30,10 @@ const renderMovies = (filter = "") => {
     const { info, ...otherProps } = movie;
     console.log(otherProps);
     // const { title: movieTitle } = info; //renaming the extracted property in object destrcturing
-    const { getFormattedTitle } = movie;
-    let text = movie.getFormattedTitle() + " - ";
+    let { getFormattedTitle } = movie;
+    getFormattedTitle = getFormattedTitle.bind(movie); //we're using bind here to make this keyword refers to the movie object even if it's called by another context
+
+    let text = getFormattedTitle() + " - ";
     for (const key in info) {
       if (key !== "title") {
         text = text + `${key} : ${info[key]}`;
