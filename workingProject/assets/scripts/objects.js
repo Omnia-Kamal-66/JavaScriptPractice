@@ -8,7 +8,7 @@ const searchBtn = document.getElementById("search-btn");
 const movieList = document.getElementById("movie-list");
 const movies = [];
 
-const renderMovies = () => {
+const renderMovies = (filter = "") => {
   if (movies.length === 0) {
     movieList.classList.remove("visible");
     return;
@@ -16,7 +16,15 @@ const renderMovies = () => {
     movieList.classList.add("visible");
   }
   movieList.innerHTML = "";
-  movies.forEach((movie) => {
+
+  const filteredMovies = !filter
+    ? movies
+    : movies.filter((movie) => {
+        //without return keyword this won't work , if you won't ignore the curly braces , you shold use return
+        return movie.info.title.includes(filter);
+      });
+
+  filteredMovies.forEach((movie) => {
     const listElement = document.createElement("li");
     let text = movie.info.title + " - ";
     for (const key in movie.info) {
@@ -27,9 +35,6 @@ const renderMovies = () => {
     listElement.textContent = text;
     movieList.append(listElement);
   });
-
-  //   console.log(listElement);
-  //   movieList.appendChild(listElement);
 };
 
 const addMovieHandler = () => {
@@ -55,5 +60,12 @@ const addMovieHandler = () => {
   renderMovies();
   console.log(newMovie);
 };
+/* in the search handler , i want take the input and also trigger the render movies function,
+but i ant to tell that function to not render all movies but only filtered ones */
+const searchMovieHandler = () => {
+  const filterTerm = document.getElementById("filter-title").value;
+  renderMovies(filterTerm);
+};
 
 addMovieBtn.addEventListener("click", addMovieHandler);
+searchBtn.addEventListener("click", searchMovieHandler);
