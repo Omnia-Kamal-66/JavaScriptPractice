@@ -31,9 +31,16 @@ const renderMovies = (filter = "") => {
     console.log(otherProps);
     // const { title: movieTitle } = info; //renaming the extracted property in object destrcturing
     let { getFormattedTitle } = movie;
-    getFormattedTitle = getFormattedTitle.bind(movie); //we're using bind here to make this keyword refers to the movie object even if it's called by another context
-
-    let text = getFormattedTitle() + " - ";
+    // getFormattedTitle = getFormattedTitle.bind(movie); //we're using bind here to make this keyword refers to the movie object even if it's called by another context
+    /* bind is useful whenever you ant to preconfigure a function for the future excution , but here we're planning to excute function right away
+so instead we can use a different method which we can call on a function
+call() > also takes multiple arguments 
+simialr to call is apply , it also excutes the function right away , first argument is what this should refer to , but it has only one other argument
+which is of type arrat , which may take any other arguments this function might be taking.
+the differnce is call allows you to pass additional arguments as
+a comma seprated list , but apply allows you to pass additional arguments as an array 
+*/
+    let text = getFormattedTitle.call(movie) + " - ";
     for (const key in info) {
       if (key !== "title") {
         text = text + `${key} : ${info[key]}`;
