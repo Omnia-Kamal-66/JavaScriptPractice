@@ -28,7 +28,7 @@ const renderMovies = (filter = "") => {
     const listElement = document.createElement("li");
 
     const { info, ...otherProps } = movie;
-    console.log(otherProps);
+
     // const { title: movieTitle } = info; //renaming the extracted property in object destrcturing
     let { getFormattedTitle } = movie;
     // getFormattedTitle = getFormattedTitle.bind(movie); //we're using bind here to make this keyword refers to the movie object even if it's called by another context
@@ -39,6 +39,14 @@ simialr to call is apply , it also excutes the function right away , first argum
 which is of type arrat , which may take any other arguments this function might be taking.
 the differnce is call allows you to pass additional arguments as
 a comma seprated list , but apply allows you to pass additional arguments as an array 
+
+- this keyword inside of a function always refer to the thing that calls the function , or the thing in front of function excution instruction
+-there is one case , when the thing in front of function excution will not work , when you set your function 
+to an event listener  , then the responisble for calling this function is the event that triggers the function 
+the browser binds 'this' for you to the dom element that triggered the event , if the function is normal function not arrow function
+
+. the thing in front of the function will work only if you're excuting the function on your own
+
 */
     let text = getFormattedTitle.call(movie) + " - ";
     for (const key in info) {
@@ -75,11 +83,11 @@ const addMovieHandler = () => {
   };
   movies.push(newMovie);
   renderMovies();
-  console.log(newMovie);
 };
 /* in the search handler , i want take the input and also trigger the render movies function,
 but i ant to tell that function to not render all movies but only filtered ones */
 const searchMovieHandler = () => {
+  console.log(this);
   const filterTerm = document.getElementById("filter-title").value;
   renderMovies(filterTerm);
 };
