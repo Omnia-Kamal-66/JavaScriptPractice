@@ -70,7 +70,7 @@ const addMovieHandler = () => {
   ) {
     return;
   }
-
+  /* you can use getters and setters as properties of object if you want to add some logic to your property */
   const newMovie = {
     info: {
       title: title,
