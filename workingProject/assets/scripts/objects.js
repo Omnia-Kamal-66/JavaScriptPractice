@@ -85,7 +85,12 @@ const addMovieHandler = () => {
   renderMovies();
 };
 /* in the search handler , i want take the input and also trigger the render movies function,
-but i ant to tell that function to not render all movies but only filtered ones */
+but i ant to tell that function to not render all movies but only filtered ones 
+
+-arrow functions doesn't know 'this' keyword
+-arrow functions don't change the binding of 'this' keyword
+
+*/
 const searchMovieHandler = () => {
   console.log(this);
   const filterTerm = document.getElementById("filter-title").value;
