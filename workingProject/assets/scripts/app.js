@@ -105,6 +105,10 @@ class ShoppingCart extends Component {
     updatedItems.push(product);
     this.cartItems = updatedItems;
   }
+  orderProducts() {
+    console.log("ordering...");
+    console.log(this.items);
+  }
 
   render() {
     const cartEl = this.createRootElement("section", "cart");
@@ -112,7 +116,8 @@ class ShoppingCart extends Component {
     <h2>Total : \$${0}</h2>
     <button>Order Now!</button>
     `;
-
+    const orderButton = cartEl.querySelector("button");
+    orderButton.addEventListener("click", this.orderProducts.bind(this));
     this.totalOutput = cartEl.querySelector("h2");
   }
 }
