@@ -12,6 +12,18 @@ you don't need to use the new keyword to create an object based on that class
 inheritance:to conveniently share code amongst classes
 -we notice that each class has a render method , 
 in each one of them , we create the element , then we add stuff to that element , and then we returnthe element
+
+-when it comes to constructors there is a couple of rules:
+  if your subclass doesn't have a constructor ,the constructor 
+  of a parent class is automatically called
+
+  if your subclass has a constructor , it will be called , and the parent class 
+  constructor will not be called
+
+
+  here in this example we want to call the subclass constructor and from there
+  call the parent constructor , we use this using 'super()' keyword
+
 */
 
 class Product {
@@ -23,8 +35,36 @@ class Product {
     this.price = price;
   }
 }
+//attributes is an array full of objects creates based on the class in the next line
+class ElementAttribute {
+  constructor(attrName, attrValue) {
+    this.name = attrName;
+    this.value = attrValue;
+  }
+}
 
-class ShoppingCart {
+class Component {
+  constructor(renderHookId) {
+    this.hookId = renderHookId;
+  }
+
+  createRootElement(tag, cssClasses, attributes) {
+    const rootElement = document.createElement(tag);
+    if (cssClasses) {
+      rootElement.className = cssClasses;
+    }
+    if (attributes && attributes.length > 0) {
+      for (const attr of attributes) {
+        rootElement.setAttribute(attr.name, attr.value);
+      }
+    }
+    document.getElementById(this.hookId).append(rootElement);
+    return rootElement;
+  }
+}
+//you can inherit from one class only in javascript
+
+class ShoppingCart extends Component {
   items = [];
   //i expect 'value' to be an array of cart items
 
@@ -42,6 +82,9 @@ class ShoppingCart {
     }, 0);
     return sum;
   }
+  constructor(renderHookId) {
+    super(renderHookId);
+  }
 
   addProduct(product) {
     const updatedItems = [...this.items];
@@ -50,14 +93,13 @@ class ShoppingCart {
   }
 
   render() {
-    const cartEl = document.createElement("section");
+    const cartEl = this.createRootElement("section", "cart");
     cartEl.innerHTML = `
     <h2>Total : \$${0}</h2>
     <button>Order Now!</button>
     `;
-    cartEl.className = "cart";
+
     this.totalOutput = cartEl.querySelector("h2");
-    return cartEl;
   }
 }
 
@@ -116,13 +158,12 @@ class Shop {
   render() {
     const renderHook = document.getElementById("app");
 
-    this.cart = new ShoppingCart();
-    const cartEl = this.cart.render();
+    this.cart = new ShoppingCart("app");
+    this.cart.render();
 
     const productList = new ProductList();
     const prodListEl = productList.render();
 
-    renderHook.append(cartEl);
     renderHook.append(prodListEl);
   }
 }
