@@ -5,25 +5,42 @@ this class can be written as a function with the function keyword
 with any name of your choice
 
 */
-// class AgedPerson {
-//   printAge() {
-//     console.log(this.age);
-//   }
-// }
 
-// class Person extends AgedPerson {
-//   name = "Max";
-//   // any code in the constructor will be excuted when the object gets created
-//   constructor() {
-//     super();
-//     this.age = 30;
-//   }
-//   greet() {
-//     console.log(
-//       "Hi I am  " + this.name + "and I am  " + this.age + "years old"
-//     );
-//   }
-// }
+class AgedPerson {
+  printAge() {
+    console.log(this.age);
+  }
+}
+
+class Person extends AgedPerson {
+  name = "Max";
+  // any code in the constructor will be excuted when the object gets created
+  constructor() {
+    super();
+    this.age = 30;
+  }
+  greet() {
+    console.log(
+      "Hi I am  " + this.name + "and I am  " + this.age + "years old"
+    );
+  }
+}
+
+const p = new Person();
+const p2 = new Person();
+console.log(p.__proto__ === p2.__proto__);
+/*
+in the p object , we will find in the __proto__ the greet method , which is weird because it's a part of
+the object , AgedPerson should only add a printAge method and nothing else.
+-the method is part of the p __proto__ , so this is the default  __proto__ which then in turn also points at yet another __proto__ which holds our base class object 
+-the function ligic soesn't change from object to object so js adds a little optimization for us,
+
+by adding a method to a prototpe , it makes sure that when eer we create a new person object ,we use the same prototyp fallback object , the exact same object in memory
+
+-to do the same in the constructor function , we don't add a method as a property , instead we add it to the prototype prop
+
+
+*/
 
 /*
 
@@ -63,27 +80,33 @@ as a fallback value to any objects you build based on this constructor function
 function Person() {
   this.age = 30;
   this.name = "Max";
-  this.greet = function () {
-    console.log(
-      "Hi I am  " + this.name + "  and I am  " + this.age + " years old"
-    );
-  };
+  //   this.greet = function () {
+  //     console.log(
+  //       "Hi I am  " + this.name + "  and I am  " + this.age + " years old"
+  //     );
+  //   };
 }
-// this is how you edit the prototype so that you don't override the defaultone and hence keep the constructor method
-Person.prototype.printAge = function () {
-  console.log(this.age);
+Person.prototype.greet = function () {
+  console.log(
+    "Hi I am  " + this.name + "  and I am  " + this.age + " years old"
+  );
 };
-Person.describe = function () {
-  console.log("Creating...");
-};
-console.dir(Person);
-const person = new Person();
-person.greet();
-person.printAge();
 
-console.log(person);
-// console.log(AgedPerson.prototype);
-console.dir(Object);
+// this is how you edit the prototype so that you don't override the defaultone and hence keep the constructor method
+// Person.prototype.printAge = function () {
+//   console.log(this.age);
+// };
+// Person.describe = function () {
+//   console.log("Creating...");
+// };
+// console.dir(Person);
+// const person = new Person();
+// person.greet();
+// person.printAge();
+
+// console.log(person);
+// // console.log(AgedPerson.prototype);
+// console.dir(Object);
 
 /*
 - Object is a constructor function built in js 
@@ -115,4 +138,11 @@ this prototype prop exists on everything which is a constructor function
 and Object is just such a constructor function in the end.
 
 it defines what will be assigned as a __proto__ for each object created based on that Object
+*/
+/*
+there is a difference between constructor functions and classes
+
+
+
+
 */
