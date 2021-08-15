@@ -5,25 +5,25 @@ this class can be written as a function with the function keyword
 with any name of your choice
 
 */
-class AgedPerson {
-  printAge() {
-    console.log(this.age);
-  }
-}
+// class AgedPerson {
+//   printAge() {
+//     console.log(this.age);
+//   }
+// }
 
-class Person extends AgedPerson {
-  name = "Max";
-  // any code in the constructor will be excuted when the object gets created
-  constructor() {
-    super();
-    this.age = 30;
-  }
-  greet() {
-    console.log(
-      "Hi I am  " + this.name + "and I am  " + this.age + "years old"
-    );
-  }
-}
+// class Person extends AgedPerson {
+//   name = "Max";
+//   // any code in the constructor will be excuted when the object gets created
+//   constructor() {
+//     super();
+//     this.age = 30;
+//   }
+//   greet() {
+//     console.log(
+//       "Hi I am  " + this.name + "and I am  " + this.age + "years old"
+//     );
+//   }
+// }
 
 /*
 
@@ -60,24 +60,59 @@ as a fallback value to any objects you build based on this constructor function
 
 
 */
-// function Person() {
-//   this.age = 30;
-//   this.name = "Max";
-//   this.greet = function () {
-//     console.log(
-//       "Hi I am  " + this.name + "  and I am  " + this.age + " years old"
-//     );
-//   };
-// }
-//this is how you edit the prototype so that you don't override the defaultone and hence keep the constructor method
-// Person.prototype.printAge= function() {
-//     console.log(this.age);
-// };
-
+function Person() {
+  this.age = 30;
+  this.name = "Max";
+  this.greet = function () {
+    console.log(
+      "Hi I am  " + this.name + "  and I am  " + this.age + " years old"
+    );
+  };
+}
+// this is how you edit the prototype so that you don't override the defaultone and hence keep the constructor method
+Person.prototype.printAge = function () {
+  console.log(this.age);
+};
+Person.describe = function () {
+  console.log("Creating...");
+};
 console.dir(Person);
 const person = new Person();
 person.greet();
 person.printAge();
 
-console.log(person.__proto__);
-console.log(AgedPerson.prototype);
+console.log(person);
+// console.log(AgedPerson.prototype);
+console.dir(Object);
+
+/*
+- Object is a constructor function built in js 
+-if you console.dir(Object) you will find a bunch of interesting things but ,
+tostring is not part of it , instead , this has it's own __proto__
+
+-in it's __proto__ we find toString somewhere though, but that actually not the reason why we have access to toString here on our person
+
+- Object is a constructor function with a bunch of built in prop or methods you can call.
+-in the class-based world ,we would call these props and methods which you can call without intantiating an object based
+on that constructor function , static props and static methods 
+-so all this prps and methods in Object is static.
+
+-indeed when you go to your class and add a static prop , this simply means that this prop is added directly 
+here to your constructor function object
+
+-Person.describe= function(){
+    log('creating..')
+}
+now this is a property of the person object , it's not a prop that  will be added to objects created based on the constructor function
+there we only add whay is inside the constructor function , this describe doesn't tweak the function body or anything like that,
+instead it interacts with that function object which is created 
+
+-Object is not the fallback object , the fallback prototype all other objects can come back to in the end.
+if it ould be ,then we should be able for example call length and get a value of 1 on any object your choice.
+
+-instead ,the fallback value of all objects is Object.prototype
+this prototype prop exists on everything which is a constructor function 
+and Object is just such a constructor function in the end.
+
+it defines what will be assigned as a __proto__ for each object created based on that Object
+*/
