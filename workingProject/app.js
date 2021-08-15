@@ -5,17 +5,26 @@ this class can be written as a function with the function keyword
 with any name of your choice
 
 */
+class AgedPerson {
+  printAge() {
+    console.log(this.age);
+  }
+}
 
-// class Person {
-//   name = "Max";
-//any code in the constructor will be excuted when the object gets created
-//   constructor() {
-//     this.age = 30;
-//   }
-//   greet() {
-//     console.log("Hi I am  " + this.name + "and I am  " + this.age + "years old");
-//   }
-// }
+class Person extends AgedPerson {
+  name = "Max";
+  // any code in the constructor will be excuted when the object gets created
+  constructor() {
+    super();
+    this.age = 30;
+  }
+  greet() {
+    console.log(
+      "Hi I am  " + this.name + "and I am  " + this.age + "years old"
+    );
+  }
+}
+
 /*
 
 this function returns a value because of the 'new' keyword,
@@ -51,20 +60,19 @@ as a fallback value to any objects you build based on this constructor function
 
 
 */
-function Person() {
-  this.age = 30;
-  this.name = "Max";
-  this.greet = function () {
-    console.log(
-      "Hi I am  " + this.name + "  and I am  " + this.age + " years old"
-    );
-  };
-}
-Person.prototype = {
-  printAge() {
-    console.log(this.age);
-  },
-};
+// function Person() {
+//   this.age = 30;
+//   this.name = "Max";
+//   this.greet = function () {
+//     console.log(
+//       "Hi I am  " + this.name + "  and I am  " + this.age + " years old"
+//     );
+//   };
+// }
+//this is how you edit the prototype so that you don't override the defaultone and hence keep the constructor method
+// Person.prototype.printAge= function() {
+//     console.log(this.age);
+// };
 
 console.dir(Person);
 const person = new Person();
@@ -72,3 +80,4 @@ person.greet();
 person.printAge();
 
 console.log(person.__proto__);
+console.log(AgedPerson.prototype);
