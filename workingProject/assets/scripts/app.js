@@ -2,6 +2,15 @@
 Add to Cart button which will then increment the total amount in a shopping cart
 */
 
+class Product {
+  title = "DEFAULT";
+  imageUrl;
+  description;
+  price;
+}
+
+console.log(new Product());
+
 const productList = {
   products: [
     {
