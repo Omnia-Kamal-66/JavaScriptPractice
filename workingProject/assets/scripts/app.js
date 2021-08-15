@@ -44,10 +44,24 @@ class ElementAttribute {
 }
 
 class Component {
-  constructor(renderHookId) {
+  constructor(renderHookId, shouldRender = true) {
     this.hookId = renderHookId;
+    if (shouldRender) {
+      this.render();
+    }
   }
+  /* in all subclasses , i basically implement a special version of render
+  so when we override a method that's defined in the paarent class,
+  this will fully replace it
 
+  -inside of a constructor , 'this' will refer to the object that is being created
+  -when we create a subclass the constructor of it will call the parent class which excutes render method ,
+  all fields and methods inside of the subclass will not be excuted or defined unless the parent constructor finishes it's work 
+  -the peoblem here is we nedd the data that is not defined to excute methods in the parent constructor
+  -to solve this we can add another parameter in the constructor of parent class and set it to true , and condition excution of render on this true
+  , we then can pass a false to this parameter from our subclass , and then we call render manually after we know the products is set
+  */
+  render() {}
   createRootElement(tag, cssClasses, attributes) {
     const rootElement = document.createElement(tag);
     if (cssClasses) {
@@ -106,8 +120,9 @@ class ShoppingCart extends Component {
 //this class is responsible for rendering a single item
 class ProductItem extends Component {
   constructor(product, renderHookId) {
-    super(renderHookId);
+    super(renderHookId, false);
     this.product = product;
+    this.render();
   }
 
   addToCart() {
@@ -136,32 +151,47 @@ class ProductItem extends Component {
 }
 
 class ProductList extends Component {
-  products = [
-    new Product("A pillow", "", "a soft pillow", 19.99),
-    new Product("A carpet", "", "A carpet which you might like or not", 89.99),
-  ];
+  products = [];
   constructor(renderHookId) {
     super(renderHookId);
+    this.fetchProducts();
   }
+  fetchProducts() {
+    this.products = [
+      new Product("A pillow", "", "a soft pillow", 19.99),
+      new Product(
+        "A carpet",
+        "",
+        "A carpet which you might like or not",
+        89.99
+      ),
+    ];
+    this.renderProducts();
+  }
+  renderProducts() {
+    for (const prod of this.products) {
+      new ProductItem(prod, "prod-list");
+    }
+  }
+
   render() {
     const prodList = this.createRootElement("ul", "product-list", [
       new ElementAttribute("id", "prod-list"),
     ]);
-
-    for (const prod of this.products) {
-      const productItem = new ProductItem(prod, "prod-list");
-      productItem.render();
+    if (this.products && this.products.length > 0) {
+      this.renderProducts();
     }
   }
 }
 
 class Shop {
+  constructor() {
+    this.render();
+  }
+
   render() {
     this.cart = new ShoppingCart("app");
-    this.cart.render();
-
-    const productList = new ProductList("app");
-    productList.render();
+    new ProductList("app");
   }
 }
 //we use this class as a communication interface between classes
@@ -170,7 +200,6 @@ class App {
 
   static init() {
     const shop = new Shop();
-    shop.render();
     this.cart = shop.cart;
   }
 
