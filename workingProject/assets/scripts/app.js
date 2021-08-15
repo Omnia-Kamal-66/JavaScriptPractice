@@ -104,7 +104,7 @@ class Shop {
     renderHook.append(prodListEl);
   }
 }
-
+//we use this class as a communication interface between classes
 class App {
   static cart;
 
