@@ -21,10 +21,27 @@ class Product {
 
 class ShoppingCart {
   items = [];
+  //i expect 'value' to be an array of cart items
+
+  set cartItems(value) {
+    this.items = value; //overwriting the existing array with a new one
+    //we added the next line , so whenever we set a new cart items , i recalculate the total amount and update the html code
+    this.totalOutput.innerHTML = `<h2>Total : \$${this.totalAmount.toFixed(
+      2
+    )}</h2>`;
+  }
+
+  get totalAmount() {
+    const sum = this.items.reduce((prevValue, currItem) => {
+      return prevValue + currItem.price;
+    }, 0);
+    return sum;
+  }
 
   addProduct(product) {
-    this.items.push(product);
-    this.totalOutput.innerHTML = `<h2>Total : \$${1}</h2>`;
+    const updatedItems = [...this.items];
+    updatedItems.push(product);
+    this.cartItems = updatedItems;
   }
 
   render() {
