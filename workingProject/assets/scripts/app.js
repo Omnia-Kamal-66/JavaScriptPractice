@@ -26,6 +26,8 @@ in each one of them , we create the element , then we add stuff to that element 
 
 */
 
+//object descriptors can be changed
+
 class Product {
   //a method which javascript automatically calls when we create a new instance of this class
   constructor(title, image, desc, price) {
