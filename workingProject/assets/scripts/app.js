@@ -7,24 +7,20 @@ class Product {
   imageUrl;
   description;
   price;
-}
 
-console.log(new Product());
+  //a method which javascript automatically calls when we create a new instance of this class
+  constructor(title, image, desc, price) {
+    this.title = title;
+    this.imageUrl = image;
+    this.description = desc;
+    this.price = price;
+  }
+}
 
 const productList = {
   products: [
-    {
-      title: "A pillow",
-      imageUrl: "",
-      price: 19.99,
-      decription: "A soft pillow",
-    },
-    {
-      title: "A carpet",
-      imageUrl: "",
-      price: 89.99,
-      decription: "A carpet which you might like or not",
-    },
+    new Product("A pillow", "", "a soft pillow", 19.99),
+    new Product("A carpet", "", "A carpet which you might like or not", 89.99),
   ],
   render() {
     const renderHook = document.getElementById("app");
