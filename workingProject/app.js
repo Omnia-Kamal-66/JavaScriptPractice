@@ -5,6 +5,7 @@ this class can be written as a function with the function keyword
 with any name of your choice
 
 */
+/* last video is not completed */
 
 class AgedPerson {
   printAge() {
