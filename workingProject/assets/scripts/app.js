@@ -8,6 +8,11 @@ Add to Cart button which will then increment the total amount in a shopping cart
 you don't need to use the new keyword to create an object based on that class
 
 */
+/* 
+inheritance:to conveniently share code amongst classes
+-we notice that each class has a render method , 
+in each one of them , we create the element , then we add stuff to that element , and then we returnthe element
+*/
 
 class Product {
   //a method which javascript automatically calls when we create a new instance of this class
