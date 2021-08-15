@@ -3,6 +3,11 @@ Add to Cart button which will then increment the total amount in a shopping cart
 */
 //all classes should be defined before excuting any code that use them
 //the order of classes doesn't matter between classes
+/*
+-static properties and methods are only accessible on the class itself ,
+you don't need to use the new keyword to create an object based on that class
+
+*/
 
 class Product {
   //a method which javascript automatically calls when we create a new instance of this class
@@ -19,7 +24,7 @@ class ShoppingCart {
 
   addProduct(product) {
     this.items.push(product);
-    this.totalOutput = `<h2>Total : \$${1}</h2>`;
+    this.totalOutput.innerHTML = `<h2>Total : \$${1}</h2>`;
   }
 
   render() {
@@ -41,8 +46,7 @@ class ProductItem {
   }
 
   addToCart() {
-    console.log("Addig Product to Cart....");
-    console.log(this.product);
+    App.addProductToCart(this.product);
   }
 
   render() {
@@ -90,8 +94,8 @@ class Shop {
   render() {
     const renderHook = document.getElementById("app");
 
-    const cart = new ShoppingCart();
-    const cartEl = cart.render();
+    this.cart = new ShoppingCart();
+    const cartEl = this.cart.render();
 
     const productList = new ProductList();
     const prodListEl = productList.render();
@@ -101,5 +105,17 @@ class Shop {
   }
 }
 
-const shop = new Shop();
-shop.render();
+class App {
+  static cart;
+
+  static init() {
+    const shop = new Shop();
+    shop.render();
+    this.cart = shop.cart;
+  }
+
+  static addProductToCart(product) {
+    this.cart.addProduct(product);
+  }
+}
+App.init(); //we operate directly on that class not on an instance of the class
