@@ -19,6 +19,11 @@ class ProductItem {
     this.product = product;
   }
 
+  addToCart() {
+    console.log("Addig Product to Cart....");
+    console.log(this.product);
+  }
+
   render() {
     const prodEl = document.createElement("li");
     prodEl.className = "product-item";
@@ -33,6 +38,10 @@ class ProductItem {
             <button>Add to Cart</button>            
           </div>
           `;
+    const addCartButton = prodEl.querySelector("button");
+    //here we bind 'this' as the browser in the event listener case , will bind 'this' to the dom object that triggered the event , in this case , the button
+    //by binding 'this' keyword in the next line , 'this' refers to the object 'productItem' , then in the add to cart method , 'this' keyword will refer to the same object
+    addCartButton.addEventListener("click", this.addToCart.bind(this));
     return prodEl;
   }
 }
