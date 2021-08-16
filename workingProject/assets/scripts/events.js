@@ -51,7 +51,12 @@ event.stoppropagation or
 event.stopimmediatepropagation if we had more event listeners on the button , then after the first event listener ,
 the other button listeners wouldn't run anymore
 */
+/*
+with event propagation ,you can implement a pattern which is called event delegation
 
+event delegation : we are adding a listenerr on the next higher element as the event propagates
+
+*/
 const div = document.querySelector("div");
 div.addEventListener("click", (event) => {
   console.log(event);
@@ -62,3 +67,27 @@ button.addEventListener("click", (event) => {
   console.log(event);
   console.log("Clicked Button");
 });
+
+//event delegation
+//if the li has more than an element , because we refering to the event target ,which is the element we clicked in , we now have a problem
+const list = document.querySelector("ul");
+
+//since events bubble up,we can also listen to a click on a list when we acttually clicked on a list item
+list.addEventListener("click", (event) => {
+  //console.log(event.currentTarget); //different from event.target , its the entire ul
+  /*
+  we can use a mix of event target and dom traversal toget access to the li 
+  -closest() it traverses up in the ancestors tree 
+  so no matter where we clicked , on h2 or p , it will alwas select the entire list item
+  */
+  event.target.closest("li").classList.toggle("highlight");
+
+  //   event.target.classList.toggle("highlight");
+});
+
+// const listItems = document.querySelectorAll("li");
+// listItems.forEach((li) => {
+//   li.addEventListener("click", (event) => {
+//     event.target.classList.toggle("highlight");
+//   });
+// });
