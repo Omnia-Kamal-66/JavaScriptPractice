@@ -81,6 +81,8 @@ list.addEventListener("click", (event) => {
   so no matter where we clicked , on h2 or p , it will alwas select the entire list item
   */
   event.target.closest("li").classList.toggle("highlight");
+  form.submit();
+  button.click(); //the event listener of the button will be triggered , but the form wil not
 
   //   event.target.classList.toggle("highlight");
 });
@@ -91,3 +93,18 @@ list.addEventListener("click", (event) => {
 //     event.target.classList.toggle("highlight");
 //   });
 // });
+
+/*
+
+sometimes you want to trigger an event programatically not just listen to an event
+-from inside an event listener i want to trigger another event listener
+
+-a better ex might be with our form , ther we could say we want to submit the form , not only by clicking the submit button,
+but also when something else happens on the page
+
+-ex : whenever i clicked on any list item , i want to submit this form
+ 
+-the eventlistener of the form itself will be skipped
+-
+
+*/
