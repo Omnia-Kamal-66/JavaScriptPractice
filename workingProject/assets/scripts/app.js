@@ -30,27 +30,50 @@ class DOMHelper {
   }
 }
 
-class ToolTip {
-  constructor(closeNotifireFunction) {
-    this.closeNotifire = closeNotifireFunction;
-  }
-  closeTooltip() {
-    this.detach();
-    this.closeNotifire();
-  }
+class Component {
+  constructor(hostElementId, insertBefore = false) {
+    if (hostElementId) {
+      console.log(hostElementId);
+      this.hostElement = document.getElementById(hostElementId);
+      console.log(this.hostElement);
+    } else {
+      this.hostElement = document.body;
+    }
 
+    this.insertBefore = insertBefore;
+  }
   detach() {
-    this.element.remove();
+    if (this.element) {
+      this.element.remove();
+    }
   }
 
   attach() {
+    console.log(this);
+    this.hostElement.insertAdjacentElement(
+      this.insertBefore ? "beforebegin" : "beforeend",
+      this.element
+    );
+  }
+}
+
+class ToolTip extends Component {
+  constructor(closeNotifireFunction) {
+    super("active-projects");
+    this.closeNotifire = closeNotifireFunction;
+    this.create();
+  }
+  closeTooltip = () => {
+    this.detach();
+    this.closeNotifire();
+  };
+  create() {
     //will display text at the end of the page
     const tooltipElement = document.createElement("div");
     tooltipElement.className = "card";
     tooltipElement.textContent = "Hello";
     tooltipElement.addEventListener("click", this.closeTooltip.bind(this));
     this.element = tooltipElement;
-    document.body.append(tooltipElement);
   }
 }
 
