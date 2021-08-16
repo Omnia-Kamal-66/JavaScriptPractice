@@ -1,9 +1,10 @@
-const button = document.querySelector("button");
+const buttons = document.querySelectorAll("button");
 // button.onclick= function(){
 
 // };
-const ButtonClickHandler = () => {
-  alert("Button was clicked");
+const ButtonClickHandler = (event) => {
+  event.target.disabled = true;
+  console.log(event);
 };
 const anotherButtonClickHandler = () => {
   console.log("This was clicked!");
@@ -14,8 +15,12 @@ const anotherButtonClickHandler = () => {
 //this approach allows you to add more than one function as an event handler
 
 const boundFn = ButtonClickHandler.bind(this);
-button.addEventListener("click", boundFn);
+// button.addEventListener("click", ButtonClickHandler);
 
-setTimeout(() => {
-  button.removeEventListener("click", boundFn);
-}, 2000);
+// setTimeout(() => {
+//   button.removeEventListener("click", ButtonClickHandler);
+// }, 2000);
+
+buttons.forEach((btn) => {
+  btn.addEventListener("click", ButtonClickHandler);
+});
