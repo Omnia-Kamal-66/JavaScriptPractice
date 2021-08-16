@@ -185,6 +185,19 @@ class ProjectList {
         list.parentElement.classList.remove("droppable");
       }
     });
+
+    list.addEventListener("drop", (event) => {
+      const projId = event.dataTransfer.getData("text/plain");
+      if (this.projects.find((p) => p.id === projId)) {
+        return;
+      }
+      document
+        .getElementById(projId)
+        .querySelector("button:last-of-type")
+        .click();
+      list.parentElement.classList.remove("droppable");
+      event.preventDefault();
+    });
   }
 
   setSwitchHandlerFunction(switchHandlerFunction) {
