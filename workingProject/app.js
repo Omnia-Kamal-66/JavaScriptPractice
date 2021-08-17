@@ -1,38 +1,20 @@
-//pure function
+// recursion
 
-function add(num1, num2) {
-  return num1 + num2;
-}
-console.log(add(1, 5));
-console.log(add(12, 15));
+// function powerOf(x, n) {
+//   let result = 1;
+//   for (let i = 0; i < n; i++) {
+//     result *= x;
+//   }
+//   return result;
+// }
 
-//factory function
-
-//why it calls a closure ? : because eery function closes over the surrounding environment which means it registers the surrounding environment
-//and the variables registered there and it memorizes the values of these variabales
-let multipliier = 1.1;
-
-function createTaxCalculator(tax) {
-  function calculateTax(amount) {
-    console.log(multipliier);
-    return amount * tax * multipliier;
+function powerOf(x, n) {
+  if (n === 1) {
+    return x;
   }
-  return calculateTax;
+  return x * powerOf(x, n - 1);
 }
-const calculatedVatAmount = createTaxCalculator(0.19);
-const calculatedIncomeTaxAmount = createTaxCalculator(0.25);
 
-multipliier = 1.2;
+console.log(powerOf(2, 3));
 
-console.log(calculatedVatAmount(100));
-console.log(calculatedIncomeTaxAmount(200));
-
-let userName = "Max";
-
-function greetUser() {
-  //let name = "Anna";
-  console.log("hi " + name);
-}
-let name = "Maximillian";
-userName = "Omnia";
-greetUser();
+//it is hard
