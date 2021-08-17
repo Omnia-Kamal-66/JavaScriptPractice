@@ -1,5 +1,7 @@
 const listElement = document.querySelector(".posts");
 const postTemplate = document.getElementById("single-post");
+const form = document.querySelector("#new-post form");
+const fetchButton = document.querySelector("#available-posts button");
 
 function sendHttpRequests(method, url, data) {
   const promise = new Promise((resolve, reject) => {
@@ -44,8 +46,16 @@ async function createPost(title, content) {
   sendHttpRequests("POST", "https://jsonplaceholder.typicode.com/posts", post);
 }
 
-fetchPosts();
-createPost("DUMMY", "A dummy post!");
+fetchButton.addEventListener("click", () => {
+  fetchPosts();
+});
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault(); //to preent the browser from submitting the form
+  const enteredTitle = event.currentTarget.querySelector("#title").value;
+  const enteredcontent = event.currentTarget.querySelector("#content").value;
+  createPost(enteredTitle, enteredcontent);
+});
 /*
 JSON constructor function has a couple of static helper methods,
 -parse :helps to convert json to javascript
