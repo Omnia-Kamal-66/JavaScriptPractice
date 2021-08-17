@@ -1,7 +1,7 @@
 const listElement = document.querySelector(".posts");
 const postTemplate = document.getElementById("single-post");
 
-function sendHttpRequests(method, url) {
+function sendHttpRequests(method, url, data) {
   const promise = new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest(); //aloows you to send http request ,it is built in the browser
 
@@ -13,7 +13,7 @@ function sendHttpRequests(method, url) {
       resolve(xhr.response);
     };
 
-    xhr.send(); //this will send a request
+    xhr.send(JSON.stringify(data)); //this will send a request
   });
 
   return promise;
@@ -33,7 +33,19 @@ async function fetchPosts() {
     listElement.append(postEl);
   }
 }
+
+async function createPost(title, content) {
+  const userId = Math.random();
+  const post = {
+    title: title,
+    body: content,
+    userId: userId,
+  };
+  sendHttpRequests("POST", "https://jsonplaceholder.typicode.com/posts", post);
+}
+
 fetchPosts();
+createPost("DUMMY", "A dummy post!");
 /*
 JSON constructor function has a couple of static helper methods,
 -parse :helps to convert json to javascript
