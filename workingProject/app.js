@@ -30,7 +30,9 @@ const getPosition = () => {
       (success) => {
         resolve(success);
       },
-      (error) => {}
+      (error) => {
+        reject(error); //it will mark the promise as failed
+      }
     );
   });
 
@@ -39,19 +41,25 @@ const getPosition = () => {
 
 function trackUserHandler() {
   let positionData;
-
+  //the place of your cath block does matter , if you have more than then block , and if one is failed , it will continue to the next then if the catch block was after the first then block
+  //if you want to cancel all then blocks ,you have to put your catch block at the end othe chain
   getPosition()
     .then((posData) => {
       positionData = posData;
       //here the promise is resolved , but when we return something in the then callback function , this will set the promise to pending , and we will wait to the returned promise to be resolved ,and now we can add a new then block after the first one
       return setTimer(2000); //the promise of the getposittion is now set back from being done to being pending
     })
+
     .then((data) => {
       console.log(data, positionData);
     }); //here i get the data of that inner promise,which in this case the timer data
-  setTimer(1000).then(() => {
-    console.log("Timer Done");
-  });
+  setTimer(1000)
+    .then(() => {
+      console.log("Timer Done");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   console.log("Getting position...");
 }
 
