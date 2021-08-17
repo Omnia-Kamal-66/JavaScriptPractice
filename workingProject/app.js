@@ -1,20 +1,38 @@
-// recursion
+const button = document.querySelector('button');
+const output = document.querySelector('p');
 
-// function powerOf(x, n) {
-//   let result = 1;
-//   for (let i = 0; i < n; i++) {
-//     result *= x;
-//   }
-//   return result;
-// }
+const setTimer = duration => {
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('Done!');
+    }, duration);
+  });
+  return promise;
+};
 
-function powerOf(x, n) {
-  if (n === 1) {
-    return x;
-  }
-  return x * powerOf(x, n - 1);
+function trackUserHandler() {
+  navigator.geolocation.getCurrentPosition(
+    posData => {
+      setTimer(2000).then(data => {
+        console.log(data, posData);
+      });
+    },
+    error => {
+      console.log(error);
+    }
+  );
+  setTimer(1000).then(() => {
+    console.log('Timer done!');
+  });
+  console.log('Getting position...');
 }
 
-console.log(powerOf(2, 3));
+button.addEventListener('click', trackUserHandler);
 
-//it is hard
+// let result = 0;
+
+// for (let i = 0; i < 100000000; i++) {
+//   result += i;
+// }
+
+// console.log(result);
