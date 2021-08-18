@@ -14,6 +14,9 @@ function sendHttpRequests(method, url, data) {
   return fetch(url, {
     method: method,
     body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
   }).then((response) => {
     return response.json();
   }); //returns a promise
@@ -21,7 +24,7 @@ function sendHttpRequests(method, url, data) {
   //   const promise = new Promise((resolve, reject) => {
 
   //     const xhr = new XMLHttpRequest(); //aloows you to send http request ,it is built in the browser
-
+  //xhr.setRequestHeader('Content-Type ' , 'application/json')
   //     xhr.open(method, url); //
 
   //     xhr.responseType = "json"; //instead of json.parse
