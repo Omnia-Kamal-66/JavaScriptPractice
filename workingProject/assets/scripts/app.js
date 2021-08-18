@@ -11,10 +11,20 @@ function sendHttpRequests(method, url, data) {
     xhr.open(method, url); //
 
     xhr.responseType = "json"; //instead of json.parse
-
+    //if you have a request that leaves page successfully and you get back a response,even if that response indicated there's something wrong in the server side ,
+    //you will end up in the onload function
     xhr.onload = function () {
-      resolve(xhr.response);
+      if (xhr.status >= 200 && xhr.status < 300) {
+        //indicates a success
+        resolve(xhr.response);
+      } else {
+        reject(new Error("Something went wrong!"));
+      }
     };
+
+    xhr.onerror = function () {
+      reject(new Error("Failed to send a request"));
+    }; //will be fired when we have a network error , the request fails to be sent
 
     xhr.send(JSON.stringify(data)); //this will send a request
   });
@@ -23,18 +33,22 @@ function sendHttpRequests(method, url, data) {
 }
 
 async function fetchPosts() {
-  const responseData = await sendHttpRequests(
-    "GET",
-    "https://jsonplaceholder.typicode.com/posts"
-  );
+  try {
+    const responseData = await sendHttpRequests(
+      "GET",
+      "https://jsonplaceholder.typicode.com/pos"
+    );
 
-  const listOfPosts = responseData;
-  for (const post of listOfPosts) {
-    const postEl = document.importNode(postTemplate.content, true);
-    postEl.querySelector("h2").textContent = post.title.toUpperCase();
-    postEl.querySelector("p").textContent = post.body;
-    postEl.querySelector("li").id = post.id;
-    listElement.append(postEl);
+    const listOfPosts = responseData;
+    for (const post of listOfPosts) {
+      const postEl = document.importNode(postTemplate.content, true);
+      postEl.querySelector("h2").textContent = post.title.toUpperCase();
+      postEl.querySelector("p").textContent = post.body;
+      postEl.querySelector("li").id = post.id;
+      listElement.append(postEl);
+    }
+  } catch (error) {
+    alert(error.message);
   }
 }
 
