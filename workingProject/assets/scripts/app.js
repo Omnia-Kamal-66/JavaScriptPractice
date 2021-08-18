@@ -11,9 +11,13 @@ function sendHttpRequests(method, url, data) {
   //fetch gives us a streamed response ,which means that response object doesn't hold the body in a way that would be ready to be used
   //to fix that we use then and response.json
 
-  return fetch(url).then((response) => {
+  return fetch(url, {
+    method: method,
+    body: JSON.stringify(data),
+  }).then((response) => {
     return response.json();
   }); //returns a promise
+
   //   const promise = new Promise((resolve, reject) => {
 
   //     const xhr = new XMLHttpRequest(); //aloows you to send http request ,it is built in the browser
