@@ -17,56 +17,42 @@ function sendHttpRequests(method, url, data) {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then((response) => {
-    return response.json();
-  }); //returns a promise
-
-  //   const promise = new Promise((resolve, reject) => {
-
-  //     const xhr = new XMLHttpRequest(); //aloows you to send http request ,it is built in the browser
-  //xhr.setRequestHeader('Content-Type ' , 'application/json')
-  //     xhr.open(method, url); //
-
-  //     xhr.responseType = "json"; //instead of json.parse
-  //     //if you have a request that leaves page successfully and you get back a response,even if that response indicated there's something wrong in the server side ,
-  //     //you will end up in the onload function
-  //     xhr.onload = function () {
-  //       if (xhr.status >= 200 && xhr.status < 300) {
-  //         //indicates a success
-  //         resolve(xhr.response);
-  //       } else {
-  //         reject(new Error("Something went wrong!"));
-  //       }
-  //     };
-
-  //     xhr.onerror = function () {
-  //       reject(new Error("Failed to send a request"));
-  //     }; //will be fired when we have a network error , the request fails to be sent
-
-  //     xhr.send(JSON.stringify(data)); //this will send a request
-  //   });
-
-  //   return promise;
-}
+  })
+    .then((response) => {
+      if (response.status >= 200 && response.status < 300) {
+        return response.json();
+      } else {
+        return response.json().then((errData) => {
+          console.log(errData);
+          throw new Error("something went wrong - server-side");
+        });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      throw new Error("something went wrong!");
+    });
+} //returns a promise
+//we added  return in the else block ,we returned that inner promise chain so it is merged into the outer promise chain
 
 async function fetchPosts() {
-  //   try {
-  const responseData = await sendHttpRequests(
-    "GET",
-    "https://jsonplaceholder.typicode.com/posts"
-  );
+  try {
+    const responseData = await sendHttpRequests(
+      "GET",
+      "https://jsonplaceholder.typicode.com/posts"
+    );
 
-  const listOfPosts = responseData;
-  for (const post of listOfPosts) {
-    const postEl = document.importNode(postTemplate.content, true);
-    postEl.querySelector("h2").textContent = post.title.toUpperCase();
-    postEl.querySelector("p").textContent = post.body;
-    postEl.querySelector("li").id = post.id;
-    listElement.append(postEl);
+    const listOfPosts = responseData;
+    for (const post of listOfPosts) {
+      const postEl = document.importNode(postTemplate.content, true);
+      postEl.querySelector("h2").textContent = post.title.toUpperCase();
+      postEl.querySelector("p").textContent = post.body;
+      postEl.querySelector("li").id = post.id;
+      listElement.append(postEl);
+    }
+  } catch (error) {
+    alert(error.message);
   }
-  //   } catch (error) {
-  //     alert(error.message);
-  //   }
 }
 
 async function createPost(title, content) {
