@@ -5,51 +5,61 @@ const fetchButton = document.querySelector("#available-posts button");
 const postList = document.querySelector("ul");
 
 function sendHttpRequests(method, url, data) {
-  const promise = new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest(); //aloows you to send http request ,it is built in the browser
+  //fetch takes a url and send a get request
+  //fetch is promise based , so that's the first native promise api we see in this course
+  //it uses promises on its own
+  //fetch gives us a streamed response ,which means that response object doesn't hold the body in a way that would be ready to be used
+  //to fix that we use then and response.json
 
-    xhr.open(method, url); //
+  return fetch(url).then((response) => {
+    return response.json();
+  }); //returns a promise
+  //   const promise = new Promise((resolve, reject) => {
 
-    xhr.responseType = "json"; //instead of json.parse
-    //if you have a request that leaves page successfully and you get back a response,even if that response indicated there's something wrong in the server side ,
-    //you will end up in the onload function
-    xhr.onload = function () {
-      if (xhr.status >= 200 && xhr.status < 300) {
-        //indicates a success
-        resolve(xhr.response);
-      } else {
-        reject(new Error("Something went wrong!"));
-      }
-    };
+  //     const xhr = new XMLHttpRequest(); //aloows you to send http request ,it is built in the browser
 
-    xhr.onerror = function () {
-      reject(new Error("Failed to send a request"));
-    }; //will be fired when we have a network error , the request fails to be sent
+  //     xhr.open(method, url); //
 
-    xhr.send(JSON.stringify(data)); //this will send a request
-  });
+  //     xhr.responseType = "json"; //instead of json.parse
+  //     //if you have a request that leaves page successfully and you get back a response,even if that response indicated there's something wrong in the server side ,
+  //     //you will end up in the onload function
+  //     xhr.onload = function () {
+  //       if (xhr.status >= 200 && xhr.status < 300) {
+  //         //indicates a success
+  //         resolve(xhr.response);
+  //       } else {
+  //         reject(new Error("Something went wrong!"));
+  //       }
+  //     };
 
-  return promise;
+  //     xhr.onerror = function () {
+  //       reject(new Error("Failed to send a request"));
+  //     }; //will be fired when we have a network error , the request fails to be sent
+
+  //     xhr.send(JSON.stringify(data)); //this will send a request
+  //   });
+
+  //   return promise;
 }
 
 async function fetchPosts() {
-  try {
-    const responseData = await sendHttpRequests(
-      "GET",
-      "https://jsonplaceholder.typicode.com/pos"
-    );
+  //   try {
+  const responseData = await sendHttpRequests(
+    "GET",
+    "https://jsonplaceholder.typicode.com/posts"
+  );
 
-    const listOfPosts = responseData;
-    for (const post of listOfPosts) {
-      const postEl = document.importNode(postTemplate.content, true);
-      postEl.querySelector("h2").textContent = post.title.toUpperCase();
-      postEl.querySelector("p").textContent = post.body;
-      postEl.querySelector("li").id = post.id;
-      listElement.append(postEl);
-    }
-  } catch (error) {
-    alert(error.message);
+  const listOfPosts = responseData;
+  for (const post of listOfPosts) {
+    const postEl = document.importNode(postTemplate.content, true);
+    postEl.querySelector("h2").textContent = post.title.toUpperCase();
+    postEl.querySelector("p").textContent = post.body;
+    postEl.querySelector("li").id = post.id;
+    listElement.append(postEl);
   }
+  //   } catch (error) {
+  //     alert(error.message);
+  //   }
 }
 
 async function createPost(title, content) {
